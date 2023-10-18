@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require("mongoose");
@@ -11,6 +12,7 @@ const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
 const fs = require('fs');
 
+
 const salt = bcrypt.genSaltSync(10);
 const secret = 'asdfe45we45w345wegw345werjktjwertkj';
 
@@ -19,7 +21,14 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
-mongoose.connect('mongodb+srv://blogstage:l2xBMo5MqzaHLCrq@clusters.tqixbf3.mongodb.net/stageBlog');
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+  const PORT = process.env.PORT || 8000
+  app.listen(PORT, () => {
+      console.log(`App is Listening on PORT ${PORT}`);
+  })
+}).catch(err => {
+  console.log(err);
+});
 
 app.post('/register', async (req,res) => {
   const {username,password} = req.body;
