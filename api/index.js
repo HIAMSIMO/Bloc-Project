@@ -97,6 +97,8 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
 
 });
 
+
+//
 app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
   let newPath = null;
   if (req.file) {
@@ -107,6 +109,7 @@ app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
     fs.renameSync(path, newPath);
   }
 
+  //update
   const {token} = req.cookies;
   jwt.verify(token, secret, {}, async (err,info) => {
     if (err) throw err;
@@ -143,5 +146,24 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
+
+//delete
+app.delete('/delete-post/:id', async (req, res) => {
+  const { id } = req.params;
+  const { token } = req.cookies;
+  jwt.verify(token, secret, {}, async (err, info) => {
+    if (err) throw err;
+    const postDoc = await Post.findById(id);
+    if (!postDoc) {
+      return res.status(404).json('post doesn\'t exist anymore.');
+    }
+    const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(info.id);
+    if (!isAuthor) {
+      return res.status(401).json('You must the Author to delete it  ! !');
+    }
+    await Post.findByIdAndDelete(id);
+    res.json('Post succesufully deleted !! .');
+  });
+});
+
 app.listen(4000);
-//
