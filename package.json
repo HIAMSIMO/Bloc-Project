@@ -4,7 +4,7 @@
     "description": "",
     "scripts": {
       "install-server": "cd api && npm install",
-      "start-server": "cd api && nodemon index",
+      "start-server": "cd api && nodemon index.js",
       "install-client": "cd client && npm install",
       "start-client": "cd client && npm start"
     },
