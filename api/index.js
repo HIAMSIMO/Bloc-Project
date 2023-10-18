@@ -148,7 +148,7 @@ app.get('/post/:id', async (req, res) => {
 
 
 //delete
-app.delete('/delete-post/:id', async (req, res) => {
+app.delete('/post/:id', async (req, res) => {
   const { id } = req.params;
   const { token } = req.cookies;
   jwt.verify(token, secret, {}, async (err, info) => {
@@ -167,3 +167,4 @@ app.delete('/delete-post/:id', async (req, res) => {
 });
 
 app.listen(4000);
+//C'EST BON C'EST TOUT LES DONNées
