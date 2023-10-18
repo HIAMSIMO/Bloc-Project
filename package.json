@@ -10,7 +10,7 @@
       "start-client": "cd client && npm run start"
     },
     "keywords": [],
-    "author": "",
+    "author": "BOUFOUSSI MED",
     "license": "ISC"
   }
   
