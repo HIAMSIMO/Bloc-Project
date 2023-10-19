@@ -1,8 +1,10 @@
 import {useState} from "react";
+import {Navigate} from "react-router-dom";
 
 export default function RegisterPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [redirect,setRedirect] = useState(false);
   async function register(ev) {
     ev.preventDefault();
     const response = await fetch('https://blog-project-stage.onrender.com/register', {
@@ -12,9 +14,14 @@ export default function RegisterPage() {
     });
     if (response.status === 200) {
       alert('registration successful');
+      setRedirect(true);
     } else {
       alert('registration failed');
     }
+  }
+
+  if (redirect) {
+    return <Navigate to={'/login'} />
   }
   return (
     <form className="register" onSubmit={register}>

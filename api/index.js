@@ -97,6 +97,8 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
 
 });
 
+
+//
 app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
   let newPath = null;
   if (req.file) {
@@ -107,6 +109,7 @@ app.put('/post',uploadMiddleware.single('file'), async (req,res) => {
     fs.renameSync(path, newPath);
   }
 
+  //update
   const {token} = req.cookies;
   jwt.verify(token, secret, {}, async (err,info) => {
     if (err) throw err;
@@ -143,5 +146,6 @@ app.get('/post/:id', async (req, res) => {
   res.json(postDoc);
 })
 
+
+
 app.listen(4000);
-//
