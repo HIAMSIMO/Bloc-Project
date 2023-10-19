@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import {formatISO9075} from "date-fns";
 import {UserContext} from "../UserContext";
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import toast from 'axios';
 
 
 export default function PostPage() {
@@ -19,6 +21,20 @@ export default function PostPage() {
   }, []);
 
 
+<<<<<<< HEAD
+=======
+  
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`https://blog-project-stage.onrender.com/post/${id}`);
+      toast.success('POST deleted');
+      setPostInfo(postInfo.filter((post) => post._id !== id));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+>>>>>>> 20ac108a3b80e5b6ad7f345992573b472c5082aa
   if (!postInfo) return '';
 
   return (
@@ -34,6 +50,7 @@ export default function PostPage() {
             </svg>
             Edit this post
           </Link>
+<<<<<<< HEAD
           <Link to={`/post/${postInfo._id}`} className="delete-btn" >
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0,0,256,256"style="fill:#FFFFFF;">
             <g fill="#ffffff" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none">
@@ -42,6 +59,11 @@ export default function PostPage() {
                 </path>
               </g>
             </g>
+=======
+          <Link to={`/post/${postInfo._id}`} className="delete-btn" onClick={handleDelete}>
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 72 72" style="fill:#FFFFFF;">
+            <path d="M 32 13 C 30.895 13 30 13.895 30 15 L 30 16 L 17 16 C 14.791 16 13 17.791 13 20 C 13 21.973645 14.432361 23.602634 16.3125 23.929688 L 18.707031 52.664062 C 19.053031 56.811062 22.520641 60 26.681641 60 L 45.318359 60 C 49.479359 60 52.945969 56.811062 53.292969 52.664062 L 55.6875 23.929688 C 57.567639 23.602634 59 21.973645 59 20 C 59 17.791 57.209 16 55 16 L 42 16 L 42 15 C 42 13.895 41.105 13 40 13 L 32 13 z M 24.347656 24 L 47.652344 24 L 45.396484 51.082031 C 45.352484 51.600031 44.918438 52 44.398438 52 L 27.601562 52 C 27.081562 52 26.647469 51.600031 26.605469 51.082031 L 24.347656 24 z"></path>
+>>>>>>> 20ac108a3b80e5b6ad7f345992573b472c5082aa
           </svg>
             Delete this post
           </Link>
